@@ -1015,15 +1015,37 @@ function showIt(btn,id){
   btn.classList.add('act');
 }
 
-// Form submit
+// Form submit — emails enquiry to sales.vinayakttj@gmail.com via FormSubmit
 function submitF(){
   const n=document.getElementById('fn').value.trim();
   const p=document.getElementById('fp').value.trim();
   if(!n||!p){alert('Please enter your name and phone number.');return}
   const b=document.querySelector('.fbtn');
-  b.disabled=true;b.textContent='✅ Enquiry Sent!';b.style.background='#16A34A';
-  const s=document.getElementById('fsuc');s.style.display='block';
-  s.scrollIntoView({behavior:'smooth',block:'nearest'});
+  b.disabled=true;b.textContent='Sending…';
+  const data={
+    _subject:'New Tour Enquiry from vinayakttj.com — '+n,
+    _template:'table',
+    _captcha:'false',
+    'Name':n,
+    'Phone / WhatsApp':p,
+    'Email':document.getElementById('fe').value.trim()||'-',
+    'Package Interest':document.getElementById('fpk').value||'-',
+    'Travel Date':document.getElementById('fd').value||'-',
+    'No. of Travellers':document.getElementById('fpx').value||'-',
+    'Message':document.getElementById('fm').value.trim()||'-'
+  };
+  fetch('https://formsubmit.co/ajax/sales.vinayakttj@gmail.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(data)
+  }).then(r=>r.json()).then(()=>{
+    b.textContent='✅ Enquiry Sent!';b.style.background='#16A34A';
+    const s=document.getElementById('fsuc');s.style.display='block';
+    s.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }).catch(()=>{
+    b.disabled=false;b.textContent='Send My Free Quote Request →';
+    alert('Could not send right now. Please call / WhatsApp 9414245847 or email sales.vinayakttj@gmail.com');
+  });
 }
 
 // Smooth anchor links

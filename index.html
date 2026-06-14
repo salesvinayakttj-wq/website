@@ -238,6 +238,28 @@ footer{background:#1A1410;color:rgba(255,255,255,.6)}
   .qrc{gap:1rem}
 }
 .sh-seo{display:none}
+
+/* ===== SPECIAL OFFERS / PROMOTIONAL FLYERS ===== */
+.offg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:34px}
+.offc{position:relative;border-radius:16px;overflow:hidden;color:#fff;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.12);transition:transform .25s,box-shadow .25s}
+.offc:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.offc::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.45) 100%);z-index:0}
+.offc>*{position:relative;z-index:1}
+.off1{background:linear-gradient(135deg,#0D7377 0%,#14919B 100%)}
+.off2{background:linear-gradient(135deg,#C8510A 0%,#E8692A 100%)}
+.off3{background:linear-gradient(135deg,#7B2D8E 0%,#B0418C 100%)}
+.off4{background:linear-gradient(135deg,#B8860B 0%,#D9A521 100%)}
+.off5{background:linear-gradient(135deg,#13547A 0%,#2B7CA8 100%)}
+.off6{background:linear-gradient(135deg,#A0410D 0%,#C66A2E 100%)}
+.off-bdg{position:absolute;top:16px;right:16px;z-index:2;background:#fff;color:#C8510A;font-weight:800;font-size:.78rem;padding:7px 13px;border-radius:30px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.off-tag{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.92;margin-bottom:8px}
+.off-ttl{font-family:'Playfair Display',serif;font-size:1.35rem;line-height:1.2;margin-bottom:8px}
+.off-sub{font-size:.85rem;opacity:.94;line-height:1.45;margin-bottom:14px}
+.off-cta{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;background:#fff;color:#1C1C1C;font-weight:700;font-size:.82rem;padding:9px 16px;border-radius:8px;transition:transform .2s}
+.off-cta:hover{transform:scale(1.05)}
+.off-note{text-align:center;margin-top:26px;font-size:.9rem;color:var(--mu)}
+.off-note a{color:var(--or);font-weight:600}
+@media(max-width:600px){.off-ttl{font-size:1.2rem}}
 </style>
 </head>
 <body>
@@ -261,6 +283,7 @@ footer{background:#1A1410;color:rgba(255,255,255,.6)}
     <div class="nl">
       <a href="#about">About Us</a>
       <a href="#destinations">Destinations</a>
+      <a href="#offers">Offers</a>
       <a href="#itineraries">Itineraries</a>
       <a href="#testimonials">Reviews</a>
       <a href="#contact">Contact</a>
@@ -274,6 +297,7 @@ footer{background:#1A1410;color:rgba(255,255,255,.6)}
 <div class="mob-drawer" id="mobmenu">
   <a href="#about" onclick="document.getElementById('mobmenu').style.display='none'">About Us</a>
   <a href="#destinations" onclick="document.getElementById('mobmenu').style.display='none'">Destinations</a>
+  <a href="#offers" onclick="document.getElementById('mobmenu').style.display='none'">Offers</a>
   <a href="#itineraries" onclick="document.getElementById('mobmenu').style.display='none'">Itineraries</a>
   <a href="#testimonials" onclick="document.getElementById('mobmenu').style.display='none'">Reviews</a>
   <a href="#contact" onclick="document.getElementById('mobmenu').style.display='none'">Contact &amp; Enquiry</a>
@@ -284,6 +308,7 @@ footer{background:#1A1410;color:rgba(255,255,255,.6)}
   <div class="snav-in">
     <button class="stab act" onclick="smNav(this,'#about')">About Us</button>
     <button class="stab" onclick="smNav(this,'#destinations')">Destinations</button>
+    <button class="stab" onclick="smNav(this,'#offers')">Offers</button>
     <button class="stab" onclick="smNav(this,'#itineraries')">Tour Itineraries</button>
     <button class="stab" onclick="smNav(this,'#testimonials')">Testimonials</button>
     <button class="stab" onclick="smNav(this,'#contact')">Contact &amp; Enquiry</button>
@@ -534,6 +559,27 @@ footer{background:#1A1410;color:rgba(255,255,255,.6)}
 </section>
 
 <!-- ITINERARIES -->
+
+<!-- SPECIAL OFFERS / PROMOTIONAL FLYERS -->
+<section class="sec stone" id="offers">
+  <div class="si">
+    <div class="rv">
+      <div class="stg">Special Offers</div>
+      <h2 class="sh">Current Deals &amp; Seasonal Promotions</h2>
+      <p class="sl">Hand-picked limited-period offers. Mention the offer name when you enquire to lock in the deal. New flyers added every season.</p>
+    </div>
+    <div class="offg rv">
+      <div class="offc off1"><span class="off-bdg">Save 20%</span><div class="off-tag">Summer Hill Escape</div><div class="off-ttl">Shimla &amp; Manali Cooloff</div><div class="off-sub">Beat the heat in the Himalayas. Hotels + Volvo + sightseeing. Early-bird discount on Apr&ndash;Jun travel.</div><a class="off-cta" href="#contact">Grab Offer →</a></div>
+      <div class="offc off2"><span class="off-bdg">From ₹11,500</span><div class="off-tag">Most Popular</div><div class="off-ttl">Golden Triangle Special</div><div class="off-sub">Delhi · Agra · Jaipur — 5N/6D with 4★ hotels, AC car &amp; guide. Perfect first-timer package.</div><a class="off-cta" href="#contact">Grab Offer →</a></div>
+      <div class="offc off3"><span class="off-bdg">Couple Price</span><div class="off-tag">Honeymoon Special</div><div class="off-ttl">Royal Rajasthan for Two</div><div class="off-sub">Udaipur · Jaisalmer · Jodhpur with candle-light dinner &amp; desert camp. Romantic heritage stays.</div><a class="off-cta" href="#contact">Grab Offer →</a></div>
+      <div class="offc off4"><span class="off-bdg">Group Discount</span><div class="off-tag">Schools &amp; Corporates</div><div class="off-ttl">Group &amp; Educational Tours</div><div class="off-sub">Special per-head rates for 15+ travellers. Tempo Traveller / bus, all-meals options &amp; tour leader.</div><a class="off-cta" href="#contact">Grab Offer →</a></div>
+      <div class="offc off5"><span class="off-bdg">Flight Deal</span><div class="off-tag">God's Own Country</div><div class="off-ttl">Kerala Backwaters</div><div class="off-sub">Munnar hills + Alleppey houseboat night, return flights from Jaipur included. Limited season slots.</div><a class="off-cta" href="#contact">Grab Offer →</a></div>
+      <div class="offc off6"><span class="off-bdg">Pilgrim Special</span><div class="off-tag">Devotional Circuit</div><div class="off-ttl">Char Dham &amp; Haridwar</div><div class="off-sub">Haridwar · Rishikesh · Kedarnath with darshan assistance &amp; comfortable hill transport.</div><a class="off-cta" href="#contact">Grab Offer →</a></div>
+    </div>
+    <p class="off-note rv">Want a custom deal for your dates &amp; budget? <a href="#contact">Ask for a personalised quote →</a></p>
+  </div>
+</section>
+
 <section class="sec white" id="itineraries">
   <div class="si">
     <div class="rv">
@@ -999,7 +1045,7 @@ document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 function smNav(btn,id){document.querySelectorAll('.stab').forEach(t=>t.classList.remove('act'));btn.classList.add('act');const el=document.querySelector(id);if(el)el.scrollIntoView({behavior:'smooth'})}
 
 // Auto-highlight section tab on scroll
-const sids=['about','destinations','itineraries','testimonials','contact'];
+const sids=['about','destinations','offers','itineraries','testimonials','contact'];
 const stabs=document.querySelectorAll('.stab');
 window.addEventListener('scroll',()=>{
   let cur='';
@@ -1022,30 +1068,8 @@ function submitF(){
   if(!n||!p){alert('Please enter your name and phone number.');return}
   const b=document.querySelector('.fbtn');
   b.disabled=true;b.textContent='Sending…';
-  const data={
-    _subject:'New Tour Enquiry from vinayakttj.com — '+n,
-    _template:'table',
-    _captcha:'false',
-    'Name':n,
-    'Phone / WhatsApp':p,
-    'Email':document.getElementById('fe').value.trim()||'-',
-    'Package Interest':document.getElementById('fpk').value||'-',
-    'Travel Date':document.getElementById('fd').value||'-',
-    'No. of Travellers':document.getElementById('fpx').value||'-',
-    'Message':document.getElementById('fm').value.trim()||'-'
-  };
-  fetch('https://formsubmit.co/ajax/sales.vinayakttj@gmail.com',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Accept':'application/json'},
-    body:JSON.stringify(data)
-  }).then(r=>r.json()).then(()=>{
-    b.textContent='✅ Enquiry Sent!';b.style.background='#16A34A';
-    const s=document.getElementById('fsuc');s.style.display='block';
-    s.scrollIntoView({behavior:'smooth',block:'nearest'});
-  }).catch(()=>{
-    b.disabled=false;b.textContent='Send My Free Quote Request →';
-    alert('Could not send right now. Please call / WhatsApp 9414245847 or email sales.vinayakttj@gmail.com');
-  });
+  const data={_subject:'New Tour Enquiry from vinayakttj.com — '+n,_template:'table',_captcha:'false','Name':n,'Phone / WhatsApp':p,'Email':document.getElementById('fe').value.trim()||'-','Package Interest':document.getElementById('fpk').value||'-','Travel Date':document.getElementById('fd').value||'-','No. of Travellers':document.getElementById('fpx').value||'-','Message':document.getElementById('fm').value.trim()||'-'};
+  fetch('https://formsubmit.co/ajax/sales.vinayakttj@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)}).then(r=>r.json()).then(()=>{b.textContent='✅ Enquiry Sent!';b.style.background='#16A34A';const s=document.getElementById('fsuc');s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'nearest'});}).catch(()=>{b.disabled=false;b.textContent='Send My Free Quote Request →';alert('Could not send right now. Please call / WhatsApp 9414245847 or email sales.vinayakttj@gmail.com');});
 }
 
 // Smooth anchor links

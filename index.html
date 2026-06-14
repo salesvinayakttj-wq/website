@@ -1080,17 +1080,22 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 </script>
+
 <script>
-/* Image resilience: lazy-load + automatic photo fallback so no broken images ever show */
+/* Image resilience: lazy-load + guaranteed on-brand fallback so a broken/stalled image never shows */
 (function(){
-  var FB={jaipur:'1599661046289-e31897846e41',hawa:'1599661046289-e31897846e41',amber:'1477587458883-47145ed94245',taj:'1564507592333-c60657eea523',agra:'1564507592333-c60657eea523',jodhpur:'1609920658906-8223bd289001',blue:'1609920658906-8223bd289001',udaipur:'1587295656906-b66e9d3a1d34',jaisalmer:'1524229656766-d9b8f9e5d5cd',manali:'1626621341517-bbf3d9990a23',himachal:'1626621341517-bbf3d9990a23',kerala:'1602216056096-3b40cc0c9944',kashmir:'1595815771614-ade9d652a65d',dal:'1595815771614-ade9d652a65d',haridwar:'1561361513-2d000a50f0dc',uttarakhand:'1561361513-2d000a50f0dc',bali:'1537996194471-e657df975ab4'};
-  function fb(alt){alt=(alt||'').toLowerCase();for(var k in FB){if(alt.indexOf(k)>-1)return 'https://images.unsplash.com/photo-'+FB[k]+'?w=900&q=80';}return 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900&q=80';}
+  function ph(alt){
+    alt=(alt||'Vinayak Tours & Travels').replace(/[<>&]/g,' ').slice(0,40);
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8510A"/><stop offset="1" stop-color="#B8860B"/></linearGradient></defs><rect width="800" height="600" fill="url(#g)"/><text x="50%" y="46%" fill="#fff" font-family="Georgia,serif" font-size="34" font-weight="bold" text-anchor="middle">'+alt+'</text><text x="50%" y="56%" fill="#ffffffcc" font-family="Arial" font-size="20" text-anchor="middle">Vinayak Tours &amp; Travels</text></svg>';
+    return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  }
+  function swap(img){ if(img.dataset.fbk)return; img.dataset.fbk=1; img.src=ph(img.alt); }
   document.querySelectorAll('img').forEach(function(img){
     if(!img.getAttribute('loading'))img.setAttribute('loading','lazy');
-    img.addEventListener('error',function(){
-      if(this.dataset.fbk)return; this.dataset.fbk=1; this.src=fb(this.alt);
-    });
-    if(img.complete&&img.naturalWidth===0&&!img.dataset.fbk){img.dataset.fbk=1;img.src=fb(img.alt);}
+    img.addEventListener('error',function(){swap(this);});
+    if(img.complete&&img.naturalWidth===0)swap(img);
+    // stalled-load guard: if not done in 9s, show placeholder
+    setTimeout(function(){ if(!(img.complete&&img.naturalWidth>0)) swap(img); },9000);
   });
 })();
 </script>

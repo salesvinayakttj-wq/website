@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Itineraries – Vinayak Tours & Travels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --coral:  #E84E40;
+      --navy:   #1A2E5A;
+      --gold:   #C8973A;
+      --cream:  #FDF6EC;
+      --light:  #F7F2EA;
+      --text:   #2D2D2D;
+      --muted:  #6B6B6B;
+      --white:  #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--cream); color: var(--text); }
+
+    /* ─── HEADER ──────────────────────────────────────────────── */
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .logo-wrap img { height: 70px; object-fit: contain; }
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    nav a {
+      text-decoration: none; color: var(--navy);
+      font-size: 0.88rem; font-weight: 500;
+      padding: 7px 14px; border-radius: 4px;
+      transition: background .2s, color .2s;
+    }
+    nav a:hover, nav a.active { background: var(--coral); color: var(--white); }
+    .nav-cta { background: var(--navy); color: var(--white) !important; border-radius: 4px; }
+    .nav-cta:hover { background: var(--coral) !important; }
+
+    /* ─── HERO ────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #2C4A8F 0%, var(--navy) 60%, #0D1E3A 100%);
+      color: var(--white); padding: 70px 24px 60px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M50 50c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zM10 10c0-5.5-4.5-10-10-10S-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-tag {
+      display: inline-block; background: var(--gold); color: var(--white);
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+      margin-bottom: 14px; line-height: 1.2;
+    }
+    .hero p { font-size: 1.05rem; opacity: .85; max-width: 560px; margin: 0 auto; font-weight: 300; }
+
+    /* ─── STATS STRIP ─────────────────────────────────────────── */
+    .stats-strip {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: center; gap: 0;
+    }
+    .stat-item {
+      flex: 1; max-width: 200px;
+      text-align: center; padding: 20px 16px;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; opacity: .7; margin-top: 4px; }
+
+    /* ─── FILTER TABS ─────────────────────────────────────────── */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid #E8E0D5;
+      position: sticky; top: 94px; z-index: 90;
+    }
+    .filter-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; padding: 0 24px; overflow-x: auto;
+    }
+    .filter-btn {
+      border: none; background: transparent;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem; font-weight: 500; color: var(--muted);
+      padding: 14px 20px; cursor: pointer;
+      border-bottom: 3px solid transparent; white-space: nowrap;
+      transition: all .2s;
+    }
+    .filter-btn:hover { color: var(--coral); }
+    .filter-btn.active { color: var(--coral); border-bottom-color: var(--coral); }
+
+    /* ─── ITINERARY LAYOUT ───────────────────────────────────── */
+    .main-wrap { max-width: 1200px; margin: 0 auto; padding: 52px 24px 72px; }
+
+    .itin-group { margin-bottom: 64px; display: none; }
+    .itin-group.visible { display: block; }
+
+    .group-head {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
+    }
+    .group-head .line {
+      flex: 1; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+    .group-head h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); }
+    .group-tag {
+      font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+
+    /* ─── ITINERARY CARD ─────────────────────────────────────── */
+    .itin-card {
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.08);
+      margin-bottom: 28px; overflow: hidden;
+      transition: box-shadow .25s;
+    }
+    .itin-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.13); }
+
+    .itin-header {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: start; padding: 24px 28px 20px; cursor: pointer;
+      gap: 16px;
+    }
+    .itin-title-area {}
+    .itin-tag {
+      display: inline-block; font-size: 0.65rem;
+      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 10px; margin-bottom: 8px;
+    }
+    .tag-popular { background: #FFF0E0; color: #C8780A; }
+    .tag-honeymoon { background: #FFE0EC; color: #C82060; }
+    .tag-adventure { background: #E0F0E8; color: #1A8050; }
+    .tag-pilgrimage { background: #E8E0FF; color: #5A10A0; }
+    .tag-wildlife { background: #E8F4E0; color: #2A7830; }
+
+    .itin-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; color: var(--navy); margin-bottom: 8px;
+    }
+    .itin-chips {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .chip {
+      background: var(--light); color: var(--muted);
+      font-size: 0.72rem; font-weight: 500;
+      padding: 4px 10px; border-radius: 12px;
+    }
+    .chip-hl { background: #FFF0E0; color: #C8780A; }
+    .itin-price-box { text-align: right; flex-shrink: 0; }
+    .price-from { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .price-val { font-size: 1.6rem; font-weight: 700; color: var(--coral); line-height: 1; }
+    .price-unit { font-size: 0.72rem; color: var(--muted); }
+    .itin-toggle {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.78rem; color: var(--coral); font-weight: 600;
+      margin-top: 8px; cursor: pointer;
+    }
+    .toggle-icon { transition: transform .3s; display: inline-block; }
+    .itin-card.open .toggle-icon { transform: rotate(180deg); }
+
+    /* ─── ACCORDION BODY ──────────────────────────────────────── */
+    .itin-body { display: none; padding: 0 28px 28px; }
+    .itin-card.open .itin-body { display: block; }
+
+    .itin-overview {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px; padding: 16px; background: var(--light); border-radius: 10px;
+      margin-bottom: 24px;
+    }
+    .ov-item { text-align: center; }
+    .ov-icon { font-size: 1.3rem; margin-bottom: 4px; }
+    .ov-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; display: block; }
+    .ov-val { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+
+    .day-list { counter-reset: day; }
+    .day-item {
+      display: flex; gap: 16px; padding: 14px 0;
+      border-bottom: 1px solid #F0EAE0;
+    }
+    .day-item:last-child { border-bottom: none; }
+    .day-num {
+      flex-shrink: 0; width: 36px; height: 36px;
+      background: var(--coral); color: var(--white);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; margin-top: 2px;
+    }
+    .day-content {}
+    .day-title { font-weight: 600; font-size: 0.88rem; color: var(--navy); margin-bottom: 4px; }
+    .day-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+    .incl-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-top: 20px;
+    }
+    .incl-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .incl-item.yes { color: #1A7840; }
+    .incl-item.no { color: #B83030; }
+    .incl-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+
+    .itin-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 20px; padding-top: 20px; border-top: 1px solid #F0EAE0;
+    }
+    .note { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+    .cta-btn {
+      display: inline-block; background: var(--coral); color: var(--white);
+      text-decoration: none; font-size: 0.82rem; font-weight: 600;
+      padding: 10px 22px; border-radius: 8px;
+      transition: background .2s, transform .15s;
+    }
+    .cta-btn:hover { background: var(--navy); transform: translateY(-1px); }
+
+    /* ─── CUSTOM TOUR CTA ─────────────────────────────────────── */
+    .custom-cta {
+      background: linear-gradient(135deg, var(--navy) 0%, #2C4A8F 100%);
+      color: var(--white); border-radius: 16px;
+      padding: 48px 40px; text-align: center; margin-top: 16px;
+    }
+    .custom-cta h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 12px;
+    }
+    .custom-cta p { opacity: .85; font-size: 0.95rem; margin-bottom: 28px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-primary {
+      background: var(--coral); color: var(--white); text-decoration: none;
+      font-weight: 600; padding: 13px 28px; border-radius: 8px;
+      font-size: 0.9rem; transition: background .2s;
+    }
+    .cta-primary:hover { background: var(--gold); }
+    .cta-secondary {
+      background: rgba(255,255,255,.12); color: var(--white); text-decoration: none;
+      font-weight: 500; padding: 13px 28px; border-radius: 8px;
+      font-size: 0.9rem; border: 1px solid rgba(255,255,255,.3);
+      transition: background .2s;
+    }
+    .cta-secondary:hover { background: rgba(255,255,255,.2); }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,.75);
+      text-align: center; padding: 36px 24px; font-size: 0.82rem;
+    }
+    footer strong { color: var(--white); }
+    footer a { color: var(--coral); text-decoration: none; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media(max-width:768px){
+      .header-inner { flex-direction: column; gap: 12px; }
+      nav { justify-content: center; }
+      .itin-header { grid-template-columns: 1fr; }
+      .itin-price-box { text-align: left; }
+      .stats-inner { flex-wrap: wrap; }
+      .incl-grid { grid-template-columns: 1fr; }
+      .itin-footer { flex-direction: column; gap: 14px; align-items: stretch; }
+      .cta-btn { text-align: center; }
+    }
+    @media(max-width:480px){
+      .itin-overview { grid-template-columns: 1fr 1fr; }
+      .custom-cta { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HEADER ══ -->
+<header>
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img src="logo.png" alt="Vinayak Tours & Travels – Since 2001, Jaipur" />
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="itineraries.html" class="active">Itineraries</a>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#contact" class="nav-cta">Enquire Now</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ HERO ═══ -->
+<section class="hero">
+  <span class="hero-tag">Handcrafted Since 2001</span>
+  <h1>Tour Itineraries</h1>
+  <p>Carefully crafted journeys across Rajasthan, the Golden Triangle, and the Himalayas — customisable for every group and budget.</p>
+</section>
+
+<!-- ═══════════════════════════════════════ STATS STRIP ══ -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">25+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">50,000+</div>
+      <div class="stat-label">Happy Travellers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">40+</div>
+      <div class="stat-label">Destinations</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Customisable</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ FILTER BAR ══ -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterGroup('all',this)">All Tours</button>
+    <button class="filter-btn" onclick="filterGroup('rajasthan',this)">Rajasthan</button>
+    <button class="filter-btn" onclick="filterGroup('triangle',this)">Golden Triangle</button>
+    <button class="filter-btn" onclick="filterGroup('himachal',this)">Himachal</button>
+    <button class="filter-btn" onclick="filterGroup('special',this)">Special Interest</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MAIN ══ -->
+<div class="main-wrap">
+
+  <!-- ──────────────────────── RAJASTHAN ─────────────── -->
+  <div class="itin-group visible" id="grp-rajasthan">
+    <div class="group-head">
+      <div class="line"></div>
+      <span class="group-tag">Heritage & Desert</span>
+      <h2>Rajasthan Tours</h2>
+      <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+    </div>
+
+    <!-- Tour 1: Royal Rajasthan 8N/9D -->
+    <div class="itin-card" id="t1">
+      <div class="itin-header" onclick="toggleCard('t1')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-popular">⭐ Most Popular</span>
+          <h3>Royal Rajasthan Circuit</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 8 Nights / 9 Days</span>
+            <span class="chip">🏙 5 Cities</span>
+            <span class="chip chip-hl">Jaipur · Jodhpur · Jaisalmer · Bikaner · Udaipur</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹18,500</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">8N / 9D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏙</div><span class="ov-label">Cities</span><div class="ov-val">5 Cities</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 5★</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🍽</div><span class="ov-label">Meals</span><div class="ov-val">Daily Breakfast</div></div>
+          <div class="ov-item"><div class="ov-icon">👤</div><span class="ov-label">Guide</span><div class="ov-val">Local Expert</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item">
+            <div class="day-num">1</div>
+            <div class="day-content">
+              <div class="day-title">Arrival in Jaipur — The Pink City</div>
+              <div class="day-desc">Airport/station pickup. Check in and evening at leisure. Welcome dinner at a heritage restaurant. Overnight Jaipur.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">2</div>
+            <div class="day-content">
+              <div class="day-title">Jaipur Sightseeing</div>
+              <div class="day-desc">Amber Fort (elephant ride optional), City Palace, Jantar Mantar (UNESCO), Hawa Mahal, local bazaar shopping — gems, textiles & handicrafts. Overnight Jaipur.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">3</div>
+            <div class="day-content">
+              <div class="day-title">Jaipur → Jodhpur (340 km, ~6 hrs)</div>
+              <div class="day-desc">Drive to the Blue City. En-route visit Ajmer-Pushkar (optional). Evening walk through the blue lanes of the old city. Overnight Jodhpur.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">4</div>
+            <div class="day-content">
+              <div class="day-title">Jodhpur Sightseeing</div>
+              <div class="day-desc">Mehrangarh Fort (stunning views over the blue city), Jaswant Thada cenotaph, Umaid Bhawan Palace museum, Sardar Market. Overnight Jodhpur.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">5</div>
+            <div class="day-content">
+              <div class="day-title">Jodhpur → Jaisalmer (290 km, ~5 hrs)</div>
+              <div class="day-desc">Drive through the Thar Desert to the Golden City. Check in and sunset at Gadisar Lake. Overnight Jaisalmer.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">6</div>
+            <div class="day-content">
+              <div class="day-title">Jaisalmer — Fort & Sam Sand Dunes</div>
+              <div class="day-desc">Jaisalmer Fort (living fort), Patwon Ki Haveli, Salim Singh Haveli. Afternoon: Sam Sand Dunes — camel safari, cultural folk music, campfire dinner under the stars. Overnight Jaisalmer / Luxury Camp.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">7</div>
+            <div class="day-content">
+              <div class="day-title">Jaisalmer → Bikaner (330 km, ~5 hrs)</div>
+              <div class="day-desc">Drive to Bikaner. Visit Junagarh Fort, Karni Mata Temple (Deshnoke), and the famous Bikaner camel research station. Overnight Bikaner.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">8</div>
+            <div class="day-content">
+              <div class="day-title">Bikaner → Udaipur (via scenic route, ~7–8 hrs)</div>
+              <div class="day-desc">Scenic drive south to Udaipur, the City of Lakes. Evening boat ride on Lake Pichola. Overnight Udaipur.</div>
+            </div>
+          </div>
+          <div class="day-item">
+            <div class="day-num">9</div>
+            <div class="day-content">
+              <div class="day-title">Udaipur & Departure</div>
+              <div class="day-desc">City Palace Museum, Saheliyon Ki Bari, Fateh Sagar Lake, Bagore Ki Haveli. Transfer to Udaipur airport/station for onward journey.</div>
+            </div>
+          </div>
+        </div>
+        <div class="incl-grid" style="margin-top:24px;">
+          <div style="font-size:.82rem;font-weight:600;color:var(--navy);grid-column:1/-1;margin-bottom:4px;">Inclusions & Exclusions</div>
+          <div class="incl-item yes"><span class="incl-icon">✅</span> 8 nights accommodation (twin sharing)</div>
+          <div class="incl-item yes"><span class="incl-icon">✅</span> Daily breakfast & welcome dinner</div>
+          <div class="incl-item yes"><span class="incl-icon">✅</span> AC vehicle for all transfers & sightseeing</div>
+          <div class="incl-item yes"><span class="incl-icon">✅</span> Local English-speaking guides</div>
+          <div class="incl-item yes"><span class="incl-icon">✅</span> Sam Dunes camel safari & folk evening</div>
+          <div class="incl-item yes"><span class="incl-icon">✅</span> All toll & parking charges</div>
+          <div class="incl-item no"><span class="incl-icon">❌</span> Airfare / train tickets</div>
+          <div class="incl-item no"><span class="incl-icon">❌</span> Personal expenses & tips</div>
+          <div class="incl-item no"><span class="incl-icon">❌</span> Monument entry fees</div>
+          <div class="incl-item no"><span class="incl-icon">❌</span> Elephant ride (optional, paid separately)</div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Prices vary with hotel category. GST extra. Customisation available.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour 2: Rajasthan Heritage & Wildlife 10N/11D -->
+    <div class="itin-card" id="t2">
+      <div class="itin-header" onclick="toggleCard('t2')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-wildlife">🐯 Heritage + Wildlife</span>
+          <h3>Rajasthan Heritage & Tiger Trail</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 10 Nights / 11 Days</span>
+            <span class="chip">🏙 6 Cities</span>
+            <span class="chip chip-hl">Jaipur · Ranthambore · Agra · Pushkar · Jodhpur · Udaipur</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹24,000</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">10N / 11D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏙</div><span class="ov-label">Cities</span><div class="ov-val">6 Cities</div></div>
+          <div class="ov-item"><div class="ov-icon">🐯</div><span class="ov-label">Safaris</span><div class="ov-val">2 Jeep Safaris</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 5★</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🍽</div><span class="ov-label">Meals</span><div class="ov-val">Daily Breakfast</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1</div><div class="day-content"><div class="day-title">Arrive Jaipur</div><div class="day-desc">Arrival, hotel check-in, city orientation walk. Welcome dinner. Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">2</div><div class="day-content"><div class="day-title">Jaipur Sightseeing</div><div class="day-desc">Amber Fort, City Palace, Hawa Mahal, Jantar Mantar, bazaar shopping. Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Jaipur → Ranthambore (180 km, ~3 hrs)</div><div class="day-desc">Drive to Ranthambore. Afternoon jeep safari into the national park (Bengal tigers, leopards, deer). Overnight Ranthambore resort.</div></div></div>
+          <div class="day-item"><div class="day-num">4</div><div class="day-content"><div class="day-title">Ranthambore Safari & → Agra</div><div class="day-desc">Early morning jeep safari. After safari, drive to Agra (320 km). Visit Agra Fort at sunset. Overnight Agra.</div></div></div>
+          <div class="day-item"><div class="day-num">5</div><div class="day-content"><div class="day-title">Agra — Taj Mahal at Sunrise</div><div class="day-desc">Sunrise visit to the iconic Taj Mahal. Agra Fort, Mehtab Bagh (sunset view). Fatehpur Sikri (optional). Overnight Agra.</div></div></div>
+          <div class="day-item"><div class="day-num">6</div><div class="day-content"><div class="day-title">Agra → Pushkar (300 km)</div><div class="day-desc">Drive to Pushkar. Evening aarti at Brahma Temple on the sacred Pushkar Lake — one of India's most spiritual experiences. Overnight Pushkar.</div></div></div>
+          <div class="day-item"><div class="day-num">7</div><div class="day-content"><div class="day-title">Pushkar → Jodhpur (190 km)</div><div class="day-desc">Morning at Pushkar Lake, then drive to Jodhpur. Evening at Mehrangarh Fort — spectacular sunset views over the blue city. Overnight Jodhpur.</div></div></div>
+          <div class="day-item"><div class="day-num">8</div><div class="day-content"><div class="day-title">Jodhpur Sightseeing</div><div class="day-desc">Mehrangarh Fort interior, Jaswant Thada, Umaid Bhawan Palace, Sardar Market. Optional: village safari on horseback. Overnight Jodhpur.</div></div></div>
+          <div class="day-item"><div class="day-num">9</div><div class="day-content"><div class="day-title">Jodhpur → Udaipur (250 km)</div><div class="day-desc">Scenic drive to Udaipur via Ranakpur Jain Temples. Boat ride on Lake Pichola at sunset. Overnight Udaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">10</div><div class="day-content"><div class="day-title">Udaipur Sightseeing</div><div class="day-desc">City Palace, Saheliyon Ki Bari, Fateh Sagar Lake, Bagore Ki Haveli cultural show. Farewell dinner at lakeside restaurant. Overnight Udaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">11</div><div class="day-content"><div class="day-title">Departure from Udaipur</div><div class="day-desc">Transfer to airport/railway station for onward journey. Tour ends.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* 2 jeep safaris included. Safari timing depends on park availability.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour 3: Weekend Rajasthan 2N/3D -->
+    <div class="itin-card" id="t3">
+      <div class="itin-header" onclick="toggleCard('t3')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-popular">🚀 Quick Getaway</span>
+          <h3>Jaipur Weekend Escape</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 2 Nights / 3 Days</span>
+            <span class="chip">🏙 1 City + Day Trips</span>
+            <span class="chip chip-hl">Jaipur · Amber · Abhaneri</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹5,500</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">2N / 3D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏙</div><span class="ov-label">Base</span><div class="ov-val">Jaipur</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 4★</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1</div><div class="day-content"><div class="day-title">Arrive Jaipur — City of Palaces</div><div class="day-desc">Pickup from railway station/airport. Check in. Afternoon: Amber Fort, Jal Mahal, Nahargarh Fort (sunset view). Dinner at local dhaba. Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">2</div><div class="day-content"><div class="day-title">Pink City Sightseeing + Abhaneri Step-Well</div><div class="day-desc">City Palace, Hawa Mahal, Jantar Mantar, Bazaars. Afternoon excursion to Chand Baori Step-Well at Abhaneri (UNESCO-listed marvel). Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Textile & Craft Morning + Departure</div><div class="day-desc">Block printing workshop (optional), Anokhi Museum or jewellery market. Drop to railway station / airport.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Perfect for Delhi / Mumbai visitors. Can be extended to 4D/3N with Ajmer-Pushkar.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /grp-rajasthan -->
+
+  <!-- ─────────────────────── GOLDEN TRIANGLE ────────── -->
+  <div class="itin-group visible" id="grp-triangle">
+    <div class="group-head">
+      <div class="line"></div>
+      <span class="group-tag">India's Classic Route</span>
+      <h2>Golden Triangle Tours</h2>
+      <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+    </div>
+
+    <!-- Tour 4: Classic Golden Triangle 5N/6D -->
+    <div class="itin-card" id="t4">
+      <div class="itin-header" onclick="toggleCard('t4')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-popular">🌟 Classic Choice</span>
+          <h3>Classic Golden Triangle</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 5 Nights / 6 Days</span>
+            <span class="chip">🏙 3 Cities</span>
+            <span class="chip chip-hl">Delhi · Agra · Jaipur</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹12,000</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">5N / 6D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏙</div><span class="ov-label">Cities</span><div class="ov-val">Delhi · Agra · Jaipur</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 4★</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🍽</div><span class="ov-label">Meals</span><div class="ov-val">Daily Breakfast</div></div>
+          <div class="ov-item"><div class="ov-icon">📸</div><span class="ov-label">UNESCO Sites</span><div class="ov-val">4 Sites</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1</div><div class="day-content"><div class="day-title">Arrive Delhi</div><div class="day-desc">Airport pickup. Hotel check-in. Evening: Connaught Place, India Gate illuminated at night. Welcome dinner. Overnight Delhi.</div></div></div>
+          <div class="day-item"><div class="day-num">2</div><div class="day-content"><div class="day-title">Delhi Sightseeing</div><div class="day-desc">Old Delhi: Red Fort (UNESCO), Jama Masjid, Chandni Chowk spice market, rickshaw ride. New Delhi: Qutub Minar (UNESCO), Humayun's Tomb (UNESCO), India Gate. Overnight Delhi.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Delhi → Agra (230 km, ~3.5 hrs)</div><div class="day-desc">Drive to Agra. Afternoon: Agra Fort (UNESCO), Mehtab Bagh for sunset Taj view across the Yamuna. Overnight Agra.</div></div></div>
+          <div class="day-item"><div class="day-num">4</div><div class="day-content"><div class="day-title">Taj Mahal at Sunrise → Fatehpur Sikri → Jaipur</div><div class="day-desc">Sunrise Taj Mahal visit (most magical light of the day). Drive to Jaipur via Fatehpur Sikri (UNESCO). Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">5</div><div class="day-content"><div class="day-title">Jaipur Full Day</div><div class="day-desc">Amber Fort, City Palace, Hawa Mahal, Jantar Mantar (UNESCO). Evening: shopping in Johari Bazaar and Bapu Bazaar. Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">6</div><div class="day-content"><div class="day-title">Jaipur → Delhi / Departure</div><div class="day-desc">Morning at leisure. Drive back to Delhi (or fly Jaipur–onwards). Tour concludes.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Fly Delhi–Agra option available. Mathura–Vrindavan add-on possible on Day 3.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour 5: Extended Golden Triangle 8N/9D -->
+    <div class="itin-card" id="t5">
+      <div class="itin-header" onclick="toggleCard('t5')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-popular">✨ Extended Circuit</span>
+          <h3>Golden Triangle + Mathura & Pushkar</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 8 Nights / 9 Days</span>
+            <span class="chip">🏙 5 Cities</span>
+            <span class="chip chip-hl">Delhi · Mathura · Agra · Pushkar · Jaipur</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹19,500</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">8N / 9D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏙</div><span class="ov-label">Cities</span><div class="ov-val">5 Destinations</div></div>
+          <div class="ov-item"><div class="ov-icon">🛕</div><span class="ov-label">Temples</span><div class="ov-val">10+ Temples</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 5★</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🎨</div><span class="ov-label">Experiences</span><div class="ov-val">Holi / Aarti</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1</div><div class="day-content"><div class="day-title">Arrive Delhi</div><div class="day-desc">Pickup, check-in. India Gate & evening at Connaught Place. Overnight Delhi.</div></div></div>
+          <div class="day-item"><div class="day-num">2</div><div class="day-content"><div class="day-title">Delhi Monuments</div><div class="day-desc">Red Fort, Jama Masjid, Chandni Chowk, Qutub Minar, Humayun's Tomb, Lotus Temple. Overnight Delhi.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Delhi → Mathura → Vrindavan</div><div class="day-desc">Drive to Mathura (180 km). Krishna Janmabhoomi temple, Dwarkadhish Temple. Boat ride on Yamuna. Evening Vrindavan: ISKCON, Banke Bihari Temple. Overnight Mathura/Vrindavan.</div></div></div>
+          <div class="day-item"><div class="day-num">4</div><div class="day-content"><div class="day-title">Mathura → Agra</div><div class="day-desc">Morning puja. Drive to Agra (60 km). Taj Mahal at sunrise, Agra Fort. Overnight Agra.</div></div></div>
+          <div class="day-item"><div class="day-num">5</div><div class="day-content"><div class="day-title">Agra → Fatehpur Sikri → Pushkar</div><div class="day-desc">Fatehpur Sikri (UNESCO) en-route. Drive to Pushkar (200 km). Sunset Brahma Temple aarti by the sacred lake. Overnight Pushkar.</div></div></div>
+          <div class="day-item"><div class="day-num">6</div><div class="day-content"><div class="day-title">Pushkar & Ajmer</div><div class="day-desc">Pushkar Lake ghats, Brahma Temple, rose gardens. Afternoon: Ajmer Dargah of Khwaja Moinuddin Chishti. Overnight Pushkar.</div></div></div>
+          <div class="day-item"><div class="day-num">7</div><div class="day-content"><div class="day-title">Pushkar → Jaipur (150 km)</div><div class="day-desc">Drive to Jaipur. City Palace, Hawa Mahal, Albert Hall Museum. Shopping evening. Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">8</div><div class="day-content"><div class="day-title">Jaipur Full Day</div><div class="day-desc">Amber Fort, Jantar Mantar, Nahargarh Fort, Jaipur bazaars. Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">9</div><div class="day-content"><div class="day-title">Jaipur Departure</div><div class="day-desc">Drop to Jaipur airport/station. Tour ends.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Holi and Pushkar Mela festival-special departures available.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /grp-triangle -->
+
+  <!-- ───────────────────────── HIMACHAL ──────────────── -->
+  <div class="itin-group visible" id="grp-himachal">
+    <div class="group-head">
+      <div class="line"></div>
+      <span class="group-tag">Hills & Valleys</span>
+      <h2>Himachal & Punjab Tours</h2>
+      <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+    </div>
+
+    <!-- Tour 6: Shimla Manali 7N/8D -->
+    <div class="itin-card" id="t6">
+      <div class="itin-header" onclick="toggleCard('t6')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-adventure">🏔 Hill Holiday</span>
+          <h3>Shimla–Manali Himalayan Escape</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 7 Nights / 8 Days</span>
+            <span class="chip">🏙 4 Stops</span>
+            <span class="chip chip-hl">Chandigarh · Shimla · Manali · Rohtang</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹14,500</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">7N / 8D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏔</div><span class="ov-label">Max Altitude</span><div class="ov-val">13,050 ft</div></div>
+          <div class="ov-item"><div class="ov-icon">❄️</div><span class="ov-label">Snow</span><div class="ov-val">Rohtang Pass</div></div>
+          <div class="ov-item"><div class="ov-icon">🎿</div><span class="ov-label">Activities</span><div class="ov-val">Snow sports</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 4★</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1</div><div class="day-content"><div class="day-title">Delhi → Chandigarh / Shimla</div><div class="day-desc">Depart early from Delhi. Drive to Chandigarh (250 km, ~4 hrs). Visit Rock Garden, Rose Garden, Sukhna Lake. Evening drive to Shimla or overnight Chandigarh.</div></div></div>
+          <div class="day-item"><div class="day-num">2</div><div class="day-content"><div class="day-title">Chandigarh → Shimla (120 km, ~4 hrs)</div><div class="day-desc">Arrive Shimla, check in. Evening walk on Mall Road, Christ Church, Ridge. Toy train experience (optional). Overnight Shimla.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Shimla Sightseeing</div><div class="day-desc">Jakhu Temple (sunrise views), Indian Institute of Advanced Studies (Viceregal Lodge), Kufri (snow activities in season), Chail. Overnight Shimla.</div></div></div>
+          <div class="day-item"><div class="day-num">4</div><div class="day-content"><div class="day-title">Shimla → Manali (260 km, ~7–8 hrs)</div><div class="day-desc">Scenic mountain drive via Kullu Valley. Stop at Pandoh Dam, Kullu market, Manikaran hot springs. Arrive Manali. Overnight Manali.</div></div></div>
+          <div class="day-item"><div class="day-num">5</div><div class="day-content"><div class="day-title">Manali Local Sightseeing</div><div class="day-desc">Hadimba Devi Temple (ancient deodar forest), Manu Temple, Old Manali village, Van Vihar, Tibetan Monastery, Solang Valley (cable car, paragliding). Overnight Manali.</div></div></div>
+          <div class="day-item"><div class="day-num">6</div><div class="day-content"><div class="day-title">Rohtang Pass Excursion (subject to permit)</div><div class="day-desc">Full day excursion to Rohtang Pass at 13,050 ft — snow, glaciers, yaks. Optional: skiing, snow scooter. Overnight Manali.</div></div></div>
+          <div class="day-item"><div class="day-num">7</div><div class="day-content"><div class="day-title">Manali → Kullu → Chandigarh</div><div class="day-desc">Drive down to Chandigarh. En-route Kullu Shawl factory visit and shopping. Overnight Chandigarh or departure.</div></div></div>
+          <div class="day-item"><div class="day-num">8</div><div class="day-content"><div class="day-title">Chandigarh → Delhi / Departure</div><div class="day-desc">Drive back to Delhi (or fly Chandigarh–onwards). Tour ends.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Rohtang Pass subject to permit & weather. Best May–Jun & Sep–Oct.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour 7: Amritsar Dharamshala Dalhousie -->
+    <div class="itin-card" id="t7">
+      <div class="itin-header" onclick="toggleCard('t7')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-pilgrimage">🙏 Spiritual & Scenic</span>
+          <h3>Amritsar – Dharamshala – Dalhousie</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 6 Nights / 7 Days</span>
+            <span class="chip">🏙 3 Hill Towns</span>
+            <span class="chip chip-hl">Amritsar · Dharamshala · Dalhousie · McLeod Ganj</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹13,000</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">6N / 7D</div></div>
+          <div class="ov-item"><div class="ov-icon">🕌</div><span class="ov-label">Golden Temple</span><div class="ov-val">Amritsar</div></div>
+          <div class="ov-item"><div class="ov-icon">☸️</div><span class="ov-label">Buddhist</span><div class="ov-val">Dharamshala</div></div>
+          <div class="ov-item"><div class="ov-icon">🏔</div><span class="ov-label">Hills</span><div class="ov-val">Dalhousie</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ – 4★</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1</div><div class="day-content"><div class="day-title">Arrive Amritsar</div><div class="day-desc">Pickup from Amritsar airport/station. Evening visit Golden Temple (Harmandir Sahib) — one of the world's most serene sights after dark. Community langar dinner. Overnight Amritsar.</div></div></div>
+          <div class="day-item"><div class="day-num">2</div><div class="day-content"><div class="day-title">Amritsar — Golden Temple & Wagah Border</div><div class="day-desc">Sunrise at Golden Temple (most magical hour). Jallianwala Bagh memorial. Afternoon: Wagah Border Retreat Ceremony (patriotic & thrilling). Overnight Amritsar.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Amritsar → Dharamshala / McLeod Ganj (220 km)</div><div class="day-desc">Drive to Dharamshala. Tibetan Museum, Tsuglagkhang Temple Complex (Dalai Lama's residence). Evening walk in McLeod Ganj — momos, Tibetan cafes. Overnight Dharamshala.</div></div></div>
+          <div class="day-item"><div class="day-num">4</div><div class="day-content"><div class="day-title">Dharamshala — Trekking & Culture</div><div class="day-desc">Bhagsu Nag waterfall hike (3 km). Guna Devi Temple. Tibetan market and cooking class (optional). Buddhist meditation session. Overnight Dharamshala.</div></div></div>
+          <div class="day-item"><div class="day-num">5</div><div class="day-content"><div class="day-title">Dharamshala → Dalhousie (115 km, ~4 hrs)</div><div class="day-desc">Scenic mountain drive to Dalhousie. Check in. Evening walk on Gandhi Chowk and Subhash Chowk. Overnight Dalhousie.</div></div></div>
+          <div class="day-item"><div class="day-num">6</div><div class="day-content"><div class="day-title">Dalhousie — Khajjiar (Mini Switzerland)</div><div class="day-desc">Day trip to Khajjiar — the "Mini Switzerland of India." Meadows, lake, and Himalayan views. Dalhousie: St. Francis Church, Bakrota Hills walk. Overnight Dalhousie.</div></div></div>
+          <div class="day-item"><div class="day-num">7</div><div class="day-content"><div class="day-title">Dalhousie → Pathankot → Departure</div><div class="day-desc">Drop to Pathankot railway station or airport (90 km). Tour ends.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Dalai Lama's audience subject to availability and schedule.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /grp-himachal -->
+
+  <!-- ───────────────────────── SPECIAL INTEREST ─────── -->
+  <div class="itin-group visible" id="grp-special">
+    <div class="group-head">
+      <div class="line"></div>
+      <span class="group-tag">Curated Experiences</span>
+      <h2>Special Interest Tours</h2>
+      <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+    </div>
+
+    <!-- Tour 8: Honeymoon -->
+    <div class="itin-card" id="t8">
+      <div class="itin-header" onclick="toggleCard('t8')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-honeymoon">💑 Romantic</span>
+          <h3>Rajasthan Honeymoon Special</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 7 Nights / 8 Days</span>
+            <span class="chip">🏙 3 Cities</span>
+            <span class="chip chip-hl">Jaipur · Pushkar · Udaipur</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹28,000</div>
+          <div class="price-unit">per couple</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">7N / 8D</div></div>
+          <div class="ov-item"><div class="ov-icon">🏩</div><span class="ov-label">Hotels</span><div class="ov-val">Heritage / Boutique</div></div>
+          <div class="ov-item"><div class="ov-icon">🍽</div><span class="ov-label">Dining</span><div class="ov-val">Candle-lit dinners</div></div>
+          <div class="ov-item"><div class="ov-icon">🚤</div><span class="ov-label">Experience</span><div class="ov-val">Lake cruise</div></div>
+          <div class="ov-item"><div class="ov-icon">🌹</div><span class="ov-label">Special</span><div class="ov-val">Rose petals & gifts</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1-2</div><div class="day-content"><div class="day-title">Jaipur — The Pink City</div><div class="day-desc">Check in to heritage haveli. Romantic Amber Fort sunset, City Palace by night. Candle-lit dinner at a rooftop Rajput restaurant. Day 2: Jantar Mantar, jewellery shopping, spa treatment.</div></div></div>
+          <div class="day-item"><div class="day-num">3-4</div><div class="day-content"><div class="day-title">Pushkar — Sacred Serenity</div><div class="day-desc">Boutique lakeside hotel. Sunset boat puja on Pushkar Lake. Early morning Brahma Temple aarti. Rose garden & local market. Desert stargazing night.</div></div></div>
+          <div class="day-item"><div class="day-num">5-7</div><div class="day-content"><div class="day-title">Udaipur — City of Romance</div><div class="day-desc">Romantic heritage hotel or Lake-view resort. Private boat ride on Lake Pichola to Lake Palace. Sunset City Palace views. Cultural show at Bagore Ki Haveli. Candle-lit dinner by the lake. Day excursion to Ranakpur temples.</div></div></div>
+          <div class="day-item"><div class="day-num">8</div><div class="day-content"><div class="day-title">Departure from Udaipur</div><div class="day-desc">Late checkout. Farewell floral arrangement. Transfer to Udaipur airport.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Includes honeymoon cake, rose petals, and couple spa session. Hotel upgrade available.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tour 9: Pilgrimage -->
+    <div class="itin-card" id="t9">
+      <div class="itin-header" onclick="toggleCard('t9')">
+        <div class="itin-title-area">
+          <span class="itin-tag tag-pilgrimage">🙏 Spiritual Journey</span>
+          <h3>North India Pilgrimage Tour</h3>
+          <div class="itin-chips">
+            <span class="chip">🗓 10 Nights / 11 Days</span>
+            <span class="chip">🏙 6 Holy Cities</span>
+            <span class="chip chip-hl">Mathura · Vrindavan · Agra · Pushkar · Ajmer · Amritsar</span>
+          </div>
+          <div class="itin-toggle">View Day-by-Day Plan <span class="toggle-icon">▼</span></div>
+        </div>
+        <div class="itin-price-box">
+          <div class="price-from">Starting from</div>
+          <div class="price-val">₹16,500</div>
+          <div class="price-unit">per person (twin sharing)</div>
+        </div>
+      </div>
+      <div class="itin-body">
+        <div class="itin-overview">
+          <div class="ov-item"><div class="ov-icon">📅</div><span class="ov-label">Duration</span><div class="ov-val">10N / 11D</div></div>
+          <div class="ov-item"><div class="ov-icon">🛕</div><span class="ov-label">Temples</span><div class="ov-val">20+ Sacred Sites</div></div>
+          <div class="ov-item"><div class="ov-icon">🏨</div><span class="ov-label">Hotels</span><div class="ov-val">3★ (clean & comfy)</div></div>
+          <div class="ov-item"><div class="ov-icon">🍽</div><span class="ov-label">Meals</span><div class="ov-val">Sattvic Veg Meals</div></div>
+          <div class="ov-item"><div class="ov-icon">🚗</div><span class="ov-label">Transport</span><div class="ov-val">AC Vehicle</div></div>
+          <div class="ov-item"><div class="ov-icon">🎤</div><span class="ov-label">Guide</span><div class="ov-val">Spiritual Guide</div></div>
+        </div>
+        <div class="day-list">
+          <div class="day-item"><div class="day-num">1-2</div><div class="day-content"><div class="day-title">Mathura & Vrindavan</div><div class="day-desc">Krishna Janmabhoomi, Dwarkadhish Temple, Vishram Ghat, Nidhivan, ISKCON, Banke Bihari. Evening Yamuna aarti.</div></div></div>
+          <div class="day-item"><div class="day-num">3</div><div class="day-content"><div class="day-title">Agra — Taj Mahal & Agra Fort</div><div class="day-desc">Taj Mahal sunrise, Agra Fort (Musamman Burj — Shah Jahan's last view of the Taj). Overnight Agra.</div></div></div>
+          <div class="day-item"><div class="day-num">4-5</div><div class="day-content"><div class="day-title">Pushkar — Brahma Temple & Lake</div><div class="day-desc">Only Brahma temple in the world. Pushkar Lake ghats, 52 bathing ghats. Savitri Temple trek. Overnight Pushkar.</div></div></div>
+          <div class="day-item"><div class="day-num">6</div><div class="day-content"><div class="day-title">Ajmer — Dargah Sharif</div><div class="day-desc">Khwaja Moinuddin Chishti Dargah — one of India's most visited pilgrimage sites. Adhai Din Ka Jhonpra mosque. Overnight Ajmer.</div></div></div>
+          <div class="day-item"><div class="day-num">7</div><div class="day-content"><div class="day-title">Jaipur — City Palace Temple</div><div class="day-desc">Govind Dev Ji Temple (Jaipur's most beloved Krishna temple), Birla Mandir, Galta Ji (Monkey Temple). Overnight Jaipur.</div></div></div>
+          <div class="day-item"><div class="day-num">8-9</div><div class="day-content"><div class="day-title">Delhi → Amritsar</div><div class="day-desc">Drive/fly to Amritsar. Golden Temple — morning sarovar dip, langar service. Wagah Border. Overnight Amritsar.</div></div></div>
+          <div class="day-item"><div class="day-num">10-11</div><div class="day-content"><div class="day-title">Amritsar — Anandpur Sahib & Departure</div><div class="day-desc">Anandpur Sahib (Khalsa foundation site). Takht Sri Keshgarh Sahib. Return journey.</div></div></div>
+        </div>
+        <div class="itin-footer">
+          <span class="note">* Vegetarian meals only. Senior-friendly pace. Available in Hindi / English.</span>
+          <a href="index.html#contact" class="cta-btn">Book / Enquire</a>
+        </div>
+      </div>
+    </div>
+  </div><!-- /grp-special -->
+
+  <!-- ──────────────────── CUSTOM TOUR CTA ───────────── -->
+  <div class="custom-cta">
+    <h3>Can't Find Your Perfect Tour?</h3>
+    <p>Every journey is unique. Tell us your dates, group size, budget, and interests — our team at Vinayak Tours has been crafting custom itineraries since 2001.</p>
+    <div class="cta-group">
+      <a href="index.html#contact" class="cta-primary">Plan My Custom Tour</a>
+      <a href="tel:+911412345678" class="cta-secondary">📞 Call Us Now</a>
+    </div>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<!-- ═════════════════════════════════════════ FOOTER ══ -->
+<footer>
+  <p><strong>Vinayak Tours & Travels</strong> — Since 2001, Jaipur (Raj.)</p>
+  <p style="margin-top:6px;">📞 <a href="tel:+911412345678">+91-141-XXXXXXX</a> &nbsp;|&nbsp; ✉️ <a href="mailto:info@vinayaktours.com">info@vinayaktours.com</a></p>
+  <p style="margin-top:10px;opacity:.5;font-size:0.75rem;">© 2025 Vinayak Tours & Travels. All rights reserved.</p>
+</footer>
+
+<script>
+  // Toggle itinerary accordion
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // Filter by group
+  function filterGroup(grp, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const groups = document.querySelectorAll('.itin-group');
+    if (grp === 'all') {
+      groups.forEach(g => { g.classList.add('visible'); g.style.display = ''; });
+    } else {
+      groups.forEach(g => {
+        if (g.id === 'grp-' + grp) {
+          g.classList.add('visible'); g.style.display = '';
+          g.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          g.classList.remove('visible'); g.style.display = 'none';
+        }
+      });
+    }
+  }
+</script>
+</body>
+</html>

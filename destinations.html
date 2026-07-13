@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destinations – Vinayak Tours & Travels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --coral:   #E84E40;
+      --navy:    #1A2E5A;
+      --gold:    #C8973A;
+      --cream:   #FDF6EC;
+      --light:   #F7F2EA;
+      --text:    #2D2D2D;
+      --muted:   #6B6B6B;
+      --white:   #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────── */
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+    .logo-wrap img {
+      height: 70px;
+      object-fit: contain;
+    }
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    nav a {
+      text-decoration: none;
+      color: var(--navy);
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 4px;
+      transition: background .2s, color .2s;
+    }
+    nav a:hover, nav a.active {
+      background: var(--coral);
+      color: var(--white);
+    }
+    .nav-cta {
+      background: var(--navy);
+      color: var(--white) !important;
+      border-radius: 4px;
+    }
+    .nav-cta:hover { background: var(--coral) !important; }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #2C4A8F 50%, #1A2E5A 100%);
+      color: var(--white);
+      padding: 70px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: .5;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      opacity: .85;
+      max-width: 560px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ─── FILTER TABS ─────────────────────────────────────────── */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid #E8E0D5;
+      position: sticky;
+      top: 94px;
+      z-index: 90;
+    }
+    .filter-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .filter-btn {
+      border: none;
+      background: transparent;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all .2s;
+    }
+    .filter-btn:hover { color: var(--coral); }
+    .filter-btn.active {
+      color: var(--coral);
+      border-bottom-color: var(--coral);
+    }
+
+    /* ─── REGION SECTIONS ─────────────────────────────────────── */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 52px 24px 0;
+    }
+    .section:last-of-type { padding-bottom: 72px; }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .section-head .line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--navy);
+    }
+
+    /* ─── CARD GRID ───────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .dest-card {
+      background: var(--white);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      transition: transform .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .dest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.13);
+    }
+
+    .card-thumb {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+    }
+    .card-thumb svg {
+      width: 100%;
+      height: 100%;
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(255,255,255,.92);
+      color: var(--navy);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--coral);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .card-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #F0EAE0;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .meta-item span { font-weight: 500; color: var(--text); }
+    .card-cta {
+      display: inline-block;
+      margin-top: 16px;
+      background: var(--coral);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 6px;
+      text-align: center;
+      transition: background .2s;
+    }
+    .card-cta:hover { background: var(--navy); }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 0.82rem;
+    }
+    footer strong { color: var(--white); }
+    footer a { color: var(--coral); text-decoration: none; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media(max-width:768px){
+      .header-inner { flex-direction: column; gap: 12px; }
+      nav { justify-content: center; }
+      .filter-btn { padding: 12px 14px; font-size: 0.8rem; }
+      .card-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:480px){
+      .card-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HEADER ══ -->
+<header>
+  <div class="header-inner">
+    <a class="logo-wrap" href="index.html">
+      <img src="logo.png" alt="Vinayak Tours & Travels – Since 2001, Jaipur" />
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="destinations.html" class="active">Destinations</a>
+      <a href="itineraries.html">Itineraries</a>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#contact" class="nav-cta">Enquire Now</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ HERO ═══ -->
+<section class="hero">
+  <span class="hero-tag">Explore India with Us</span>
+  <h1>Our Destinations</h1>
+  <p>Handpicked places across Rajasthan, Central India & the Himalayas — expertly crafted by Vinayak Tours since 2001.</p>
+</section>
+
+<!-- ════════════════════════════════════════ FILTER BAR ══ -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterSection('all',this)">All Destinations</button>
+    <button class="filter-btn" onclick="filterSection('rajasthan',this)">Rajasthan</button>
+    <button class="filter-btn" onclick="filterSection('central',this)">Central India</button>
+    <button class="filter-btn" onclick="filterSection('himachal',this)">Himachal & Punjab</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ RAJASTHAN ═══ -->
+<section class="section" id="rajasthan" data-region="rajasthan">
+  <div class="section-head">
+    <div class="line"></div>
+    <span class="section-label">Heritage & Desert</span>
+    <h2>Rajasthan</h2>
+    <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Jaipur -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="jpSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFD580"/>
+              <stop offset="100%" stop-color="#FFA040"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#jpSky)"/>
+          <!-- Ground -->
+          <rect x="0" y="145" width="320" height="45" fill="#C8824A"/>
+          <!-- Hawa Mahal silhouette -->
+          <rect x="80" y="55" width="160" height="95" fill="#E84E40" opacity=".9"/>
+          <rect x="88" y="45" width="14" height="55" fill="#C8383A"/>
+          <rect x="108" y="40" width="14" height="60" fill="#C8383A"/>
+          <rect x="128" y="35" width="14" height="65" fill="#C8383A"/>
+          <rect x="148" y="30" width="14" height="70" fill="#C8383A"/>
+          <rect x="168" y="35" width="14" height="65" fill="#C8383A"/>
+          <rect x="188" y="40" width="14" height="60" fill="#C8383A"/>
+          <rect x="208" y="45" width="14" height="55" fill="#C8383A"/>
+          <!-- Windows pattern -->
+          <rect x="90" y="75" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <rect x="110" y="70" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <rect x="130" y="65" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <rect x="150" y="60" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <rect x="170" y="65" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <rect x="190" y="70" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <rect x="210" y="75" width="8" height="10" rx="4" fill="#FFD580" opacity=".7"/>
+          <!-- Sun -->
+          <circle cx="260" cy="40" r="22" fill="#FFE066" opacity=".9"/>
+        </svg>
+        <span class="card-badge">Pink City</span>
+      </div>
+      <div class="card-body">
+        <h3>Jaipur</h3>
+        <div class="card-subtitle">Capital of Rajasthan</div>
+        <p class="card-desc">Founded by Maharaja Sawai Jai Singh in 1727, Jaipur dazzles with exotic forts, lavish palaces, and vibrant bazaars. Home to Amber Fort, City Palace, Hawa Mahal, and Jantar Mantar.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Best: Oct – Mar</span></div>
+          <div class="meta-item">✈️ <span>Direct Flights</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Jaisalmer -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="jsSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FBE8C0"/>
+              <stop offset="100%" stop-color="#F5C97A"/>
+            </linearGradient>
+            <linearGradient id="jsDune" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#E8B96A"/>
+              <stop offset="100%" stop-color="#C8973A"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#jsSky)"/>
+          <!-- Dunes -->
+          <ellipse cx="80" cy="175" rx="130" ry="50" fill="url(#jsDune)"/>
+          <ellipse cx="240" cy="180" rx="120" ry="45" fill="#D4A652"/>
+          <!-- Fort -->
+          <rect x="90" y="60" width="140" height="90" fill="#C8973A" opacity=".95"/>
+          <rect x="85" y="50" width="18" height="30" fill="#B8872A" rx="2"/>
+          <rect x="112" y="45" width="18" height="35" fill="#B8872A" rx="2"/>
+          <rect x="145" y="40" width="20" height="40" fill="#B8872A" rx="2"/>
+          <rect x="178" y="45" width="18" height="35" fill="#B8872A" rx="2"/>
+          <rect x="205" y="50" width="18" height="30" fill="#B8872A" rx="2"/>
+          <!-- Windows -->
+          <rect x="115" y="75" width="10" height="14" rx="5" fill="#FBE8C0" opacity=".6"/>
+          <rect x="148" y="70" width="10" height="14" rx="5" fill="#FBE8C0" opacity=".6"/>
+          <rect x="181" y="75" width="10" height="14" rx="5" fill="#FBE8C0" opacity=".6"/>
+          <!-- Camel silhouette -->
+          <ellipse cx="255" cy="145" rx="22" ry="12" fill="#A07828"/>
+          <rect x="262" y="128" width="8" height="22" rx="3" fill="#A07828"/>
+          <rect x="244" y="140" width="6" height="18" rx="3" fill="#A07828"/>
+          <rect x="258" y="140" width="6" height="20" rx="3" fill="#A07828"/>
+          <circle cx="272" cy="126" r="7" fill="#A07828"/>
+          <ellipse cx="271" cy="122" rx="5" ry="8" fill="#8A6220"/>
+          <!-- Star -->
+          <circle cx="40" cy="25" r="3" fill="#FFD700"/>
+          <circle cx="70" cy="15" r="2" fill="#FFD700"/>
+          <circle cx="280" cy="20" r="2.5" fill="#FFD700"/>
+        </svg>
+        <span class="card-badge">Golden City</span>
+      </div>
+      <div class="card-body">
+        <h3>Jaisalmer</h3>
+        <div class="card-subtitle">Heart of the Thar Desert</div>
+        <p class="card-desc">The "Golden City" lies in the Thar Desert, founded in 1156 AD. The magnificent sandstone Jaisalmer Fort, Sam Sand Dunes, camel safaris, and folk music make it legendary.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Best: Oct – Feb</span></div>
+          <div class="meta-item">🐪 <span>Desert Safaris</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Jodhpur -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="jdSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#87CEEB"/>
+              <stop offset="100%" stop-color="#5BA8C8"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#jdSky)"/>
+          <!-- Blue city houses -->
+          <rect x="0" y="120" width="320" height="70" fill="#3A7ABF" opacity=".3"/>
+          <rect x="10" y="110" width="40" height="50" fill="#4A8ACF" opacity=".7" rx="2"/>
+          <rect x="55" y="100" width="35" height="60" fill="#5590D5" opacity=".8" rx="2"/>
+          <rect x="95" y="115" width="40" height="45" fill="#4A8ACF" opacity=".7" rx="2"/>
+          <rect x="140" y="105" width="35" height="55" fill="#5590D5" opacity=".8" rx="2"/>
+          <rect x="180" y="118" width="40" height="42" fill="#4A8ACF" opacity=".7" rx="2"/>
+          <rect x="225" y="108" width="35" height="52" fill="#5590D5" opacity=".8" rx="2"/>
+          <rect x="265" y="120" width="40" height="40" fill="#4A8ACF" opacity=".7" rx="2"/>
+          <!-- Mehrangarh Fort on hill -->
+          <polygon points="100,70 220,70 240,30 80,30" fill="#D4956A"/>
+          <rect x="85" y="10" width="150" height="55" fill="#C88050" rx="2"/>
+          <rect x="88" y="5" width="15" height="25" fill="#B87040" rx="2"/>
+          <rect x="108" y="2" width="15" height="28" fill="#B87040" rx="2"/>
+          <rect x="155" y="0" width="18" height="30" fill="#B87040" rx="2"/>
+          <rect x="198" y="2" width="15" height="28" fill="#B87040" rx="2"/>
+          <rect x="218" y="5" width="15" height="25" fill="#B87040" rx="2"/>
+          <!-- Sun -->
+          <circle cx="270" cy="35" r="20" fill="#FFE066" opacity=".9"/>
+        </svg>
+        <span class="card-badge">Blue City</span>
+      </div>
+      <div class="card-body">
+        <h3>Jodhpur</h3>
+        <div class="card-subtitle">Sun City of Rajasthan</div>
+        <p class="card-desc">Rajasthan's second-largest city, "The Blue City" was founded in 1459. The colossal Mehrangarh Fort looms over vivid blue-painted houses, vibrant markets and mouth-watering Rajasthani cuisine.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Year-round</span></div>
+          <div class="meta-item">🏰 <span>Mehrangarh Fort</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Udaipur -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="udSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFB6C1"/>
+              <stop offset="100%" stop-color="#FF8CA8"/>
+            </linearGradient>
+            <linearGradient id="udWater" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6BBAD4"/>
+              <stop offset="100%" stop-color="#4A9AB8"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#udSky)"/>
+          <!-- Lake -->
+          <ellipse cx="160" cy="175" rx="170" ry="40" fill="url(#udWater)" opacity=".9"/>
+          <!-- Lake Palace -->
+          <rect x="100" y="110" width="120" height="55" fill="#FFF8EE" rx="3"/>
+          <rect x="95" y="95" width="25" height="45" fill="#F5E8D8" rx="2"/>
+          <rect x="200" y="95" width="25" height="45" fill="#F5E8D8" rx="2"/>
+          <rect x="120" y="90" width="80" height="30" fill="#FFF8EE" rx="2"/>
+          <!-- Chhatris -->
+          <polygon points="110,90 120,65 130,90" fill="#E8D8C0"/>
+          <polygon points="150,90 160,62 170,90" fill="#E8D8C0"/>
+          <polygon points="190,90 200,65 210,90" fill="#E8D8C0"/>
+          <!-- Reflection -->
+          <rect x="100" y="160" width="120" height="25" fill="white" opacity=".15" rx="3"/>
+          <!-- Mountains -->
+          <polygon points="0,100 60,45 120,100" fill="#8FA8C8" opacity=".4"/>
+          <polygon points="200,100 270,40 320,100" fill="#8FA8C8" opacity=".4"/>
+          <!-- Boats -->
+          <ellipse cx="60" cy="168" rx="20" ry="5" fill="#C8780A" opacity=".7"/>
+          <ellipse cx="250" cy="172" rx="18" ry="4" fill="#C8780A" opacity=".7"/>
+        </svg>
+        <span class="card-badge">City of Lakes</span>
+      </div>
+      <div class="card-body">
+        <h3>Udaipur</h3>
+        <div class="card-subtitle">Venice of the East</div>
+        <p class="card-desc">The "City of Lakes" is Rajasthan's most romantic destination. The breathtaking Lake Palace, City Palace on the banks of Lake Pichola, and Fateh Sagar Lake enchant every visitor.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Best: Sep – Mar</span></div>
+          <div class="meta-item">🚤 <span>Lake Cruise</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Bikaner -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="bkSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFECD0"/>
+              <stop offset="100%" stop-color="#FFB870"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#bkSky)"/>
+          <rect x="0" y="145" width="320" height="45" fill="#D4A060"/>
+          <!-- Junagarh Fort -->
+          <rect x="50" y="55" width="220" height="95" fill="#D4906A" rx="3"/>
+          <rect x="44" y="45" width="25" height="55" fill="#C07848" rx="2"/>
+          <rect x="76" y="40" width="22" height="60" fill="#C07848" rx="2"/>
+          <rect x="140" y="32" width="30" height="68" fill="#C07848" rx="2"/>
+          <rect x="210" y="40" width="22" height="60" fill="#C07848" rx="2"/>
+          <rect x="242" y="45" width="25" height="55" fill="#C07848" rx="2"/>
+          <!-- Red sandstone detailing -->
+          <rect x="60" y="80" width="12" height="16" rx="6" fill="#FFE0B0" opacity=".7"/>
+          <rect x="95" y="75" width="12" height="16" rx="6" fill="#FFE0B0" opacity=".7"/>
+          <rect x="148" y="65" width="14" height="18" rx="7" fill="#FFE0B0" opacity=".7"/>
+          <rect x="195" y="75" width="12" height="16" rx="6" fill="#FFE0B0" opacity=".7"/>
+          <rect x="228" y="80" width="12" height="16" rx="6" fill="#FFE0B0" opacity=".7"/>
+          <!-- Sun -->
+          <circle cx="265" cy="35" r="18" fill="#FFD060" opacity=".9"/>
+        </svg>
+        <span class="card-badge">Camel Country</span>
+      </div>
+      <div class="card-body">
+        <h3>Bikaner</h3>
+        <div class="card-subtitle">Land of Forts & Flavours</div>
+        <p class="card-desc">Founded in 1488, Bikaner's imposing Junagarh Fort and stunning red-sandstone architecture are legendary. Also famous for Karni Mata Temple and the delectable Bikaner Bhujia.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Best: Oct – Feb</span></div>
+          <div class="meta-item">🏰 <span>Junagarh Fort</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Mount Abu -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="maSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B8E4F0"/>
+              <stop offset="100%" stop-color="#7CC8E0"/>
+            </linearGradient>
+            <linearGradient id="maHill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#5A9E60"/>
+              <stop offset="100%" stop-color="#3A7840"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#maSky)"/>
+          <!-- Mountains -->
+          <polygon points="0,140 80,50 160,140" fill="url(#maHill)"/>
+          <polygon points="100,140 190,35 280,140" fill="#4A9050"/>
+          <polygon points="200,140 280,60 320,140" fill="#3A8040"/>
+          <!-- Clouds -->
+          <ellipse cx="60" cy="30" rx="40" ry="15" fill="white" opacity=".7"/>
+          <ellipse cx="90" cy="25" rx="30" ry="12" fill="white" opacity=".7"/>
+          <ellipse cx="240" cy="40" rx="35" ry="13" fill="white" opacity=".7"/>
+          <!-- Nakki Lake -->
+          <ellipse cx="160" cy="160" rx="80" ry="22" fill="#5BA8C8" opacity=".8"/>
+          <!-- Dilwara Temple -->
+          <rect x="130" y="80" width="60" height="45" fill="white" opacity=".9" rx="2"/>
+          <polygon points="130,80 160,60 190,80" fill="white" opacity=".9"/>
+          <polygon points="138,80 155,68 172,80" fill="#E8D8C0"/>
+          <!-- Trees -->
+          <circle cx="30" cy="120" r="18" fill="#2D6830"/>
+          <circle cx="280" cy="115" r="20" fill="#2D6830"/>
+          <rect x="26" y="135" width="8" height="20" fill="#5A3818"/>
+          <rect x="276" y="132" width="8" height="23" fill="#5A3818"/>
+        </svg>
+        <span class="card-badge">Hill Station</span>
+      </div>
+      <div class="card-body">
+        <h3>Mount Abu</h3>
+        <div class="card-subtitle">Rajasthan's Only Hill Station</div>
+        <p class="card-desc">At 1,220 m in the Aravalli range, Mount Abu is Rajasthan's cool retreat. The breathtaking Dilwara Jain Temples, Nakki Lake, and Guru Shikhar peak make it uniquely special.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Mar – Jun & Sep – Nov</span></div>
+          <div class="meta-item">🛕 <span>Dilwara Temples</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Ajmer-Pushkar -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="apSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFE4B5"/>
+              <stop offset="100%" stop-color="#FFA500"/>
+            </linearGradient>
+            <linearGradient id="apWater" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7CCCE0"/>
+              <stop offset="100%" stop-color="#5AACE0"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#apSky)"/>
+          <!-- Pushkar Lake -->
+          <ellipse cx="160" cy="170" rx="160" ry="40" fill="url(#apWater)" opacity=".8"/>
+          <!-- Ghats -->
+          <rect x="40" y="140" width="240" height="35" fill="#F0E0C8" opacity=".9"/>
+          <rect x="50" y="130" width="30" height="35" fill="#E8D0B0"/>
+          <rect x="130" y="125" width="30" height="40" fill="#E8D0B0"/>
+          <rect x="240" y="130" width="30" height="35" fill="#E8D0B0"/>
+          <!-- Dargah / Temple -->
+          <rect x="115" y="60" width="90" height="70" fill="white" opacity=".95" rx="3"/>
+          <rect x="128" y="45" width="20" height="35" fill="white" opacity=".95" rx="10"/>
+          <rect x="173" y="45" width="20" height="35" fill="white" opacity=".95" rx="10"/>
+          <polygon points="115,60 160,30 205,60" fill="#E0C8A0"/>
+          <!-- Flowers -->
+          <circle cx="60" cy="160" r="5" fill="#FF6B6B" opacity=".8"/>
+          <circle cx="80" cy="155" r="4" fill="#FF9B4A" opacity=".8"/>
+          <circle cx="240" cy="158" r="5" fill="#FF6B6B" opacity=".8"/>
+          <circle cx="260" cy="153" r="4" fill="#FFCC44" opacity=".8"/>
+          <!-- Sun -->
+          <circle cx="275" cy="30" r="22" fill="#FFD060" opacity=".9"/>
+        </svg>
+        <span class="card-badge">Pilgrimage</span>
+      </div>
+      <div class="card-body">
+        <h3>Ajmer – Pushkar</h3>
+        <div class="card-subtitle">Spiritual Twin Cities</div>
+        <p class="card-desc">Ajmer's revered Dargah of Khwaja Moinuddin Chishti and Pushkar's sacred lake with the only Brahma temple in the world — a deeply spiritual and culturally rich twin destination.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Oct – Mar</span></div>
+          <div class="meta-item">🙏 <span>Pushkar Mela</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Ranthambore -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rnSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#87CEAB"/>
+              <stop offset="100%" stop-color="#4A9E70"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#rnSky)"/>
+          <!-- Forest -->
+          <rect x="0" y="120" width="320" height="70" fill="#2D6830"/>
+          <circle cx="30" cy="120" r="28" fill="#3A8040"/>
+          <circle cx="70" cy="115" r="24" fill="#2D6830"/>
+          <circle cx="110" cy="122" r="26" fill="#3A8040"/>
+          <circle cx="200" cy="118" r="24" fill="#2D6830"/>
+          <circle cx="245" cy="125" r="28" fill="#3A8040"/>
+          <circle cx="290" cy="120" r="24" fill="#2D6830"/>
+          <!-- Tiger -->
+          <ellipse cx="160" cy="148" rx="35" ry="16" fill="#FF9040"/>
+          <rect x="130" y="140" width="15" height="20" rx="4" fill="#FF9040"/>
+          <rect x="155" y="140" width="15" height="22" rx="4" fill="#FF9040"/>
+          <circle cx="175" cy="135" r="14" fill="#FF9040"/>
+          <!-- Tiger stripes -->
+          <rect x="138" y="140" width="4" height="16" rx="2" fill="#1A1A1A" opacity=".4"/>
+          <rect x="152" y="142" width="4" height="16" rx="2" fill="#1A1A1A" opacity=".4"/>
+          <rect x="166" y="142" width="4" height="16" rx="2" fill="#1A1A1A" opacity=".4"/>
+          <!-- Eyes -->
+          <circle cx="171" cy="132" r="3" fill="#FFD700"/>
+          <circle cx="180" cy="132" r="3" fill="#FFD700"/>
+          <!-- Fort ruins -->
+          <rect x="240" y="50" width="60" height="50" fill="#C8A070" opacity=".8" rx="2"/>
+          <rect x="238" y="40" width="12" height="25" fill="#B89058" rx="2"/>
+          <rect x="255" y="38" width="12" height="27" fill="#B89058" rx="2"/>
+          <rect x="285" y="40" width="12" height="25" fill="#B89058" rx="2"/>
+        </svg>
+        <span class="card-badge">Tiger Reserve</span>
+      </div>
+      <div class="card-body">
+        <h3>Ranthambore</h3>
+        <div class="card-subtitle">India's Premier Tiger Reserve</div>
+        <p class="card-desc">Once a royal hunting ground, now one of India's finest national parks. Set against the 10th-century Ranthambore Fort, it offers thrilling jeep safaris and Bengal tiger sightings.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Oct – Jun</span></div>
+          <div class="meta-item">🐯 <span>Tiger Safaris</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+  </div><!-- /card-grid -->
+</section>
+
+<!-- ══════════════════════════════════════ CENTRAL INDIA ══ -->
+<section class="section" id="central" data-region="central">
+  <div class="section-head">
+    <div class="line"></div>
+    <span class="section-label">History & Heritage</span>
+    <h2>Central India</h2>
+    <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Delhi -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dlSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFDAB9"/>
+              <stop offset="100%" stop-color="#FF8C5A"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#dlSky)"/>
+          <rect x="0" y="145" width="320" height="45" fill="#C07850"/>
+          <!-- Red Fort -->
+          <rect x="60" y="55" width="200" height="95" fill="#B84040" rx="2"/>
+          <rect x="55" y="45" width="22" height="60" fill="#A83030" rx="2"/>
+          <rect x="82" y="38" width="20" height="67" fill="#A83030" rx="2"/>
+          <rect x="218" y="38" width="20" height="67" fill="#A83030" rx="2"/>
+          <rect x="243" y="45" width="22" height="60" fill="#A83030" rx="2"/>
+          <!-- Arch Gate -->
+          <rect x="140" y="80" width="40" height="70" fill="#C84848" rx="2"/>
+          <ellipse cx="160" cy="80" rx="20" ry="15" fill="#B83838"/>
+          <!-- White marble details -->
+          <rect x="68" y="65" width="10" height="14" rx="5" fill="white" opacity=".6"/>
+          <rect x="92" y="58" width="10" height="14" rx="5" fill="white" opacity=".6"/>
+          <rect x="218" y="58" width="10" height="14" rx="5" fill="white" opacity=".6"/>
+          <rect x="240" y="65" width="10" height="14" rx="5" fill="white" opacity=".6"/>
+          <!-- Qutub Minar (small) -->
+          <rect x="272" y="70" width="14" height="70" fill="#C8906A" rx="3"/>
+          <polygon points="272,70 279,50 286,70" fill="#B87A50"/>
+          <!-- Sun -->
+          <circle cx="40" cy="30" r="20" fill="#FFD080" opacity=".9"/>
+        </svg>
+        <span class="card-badge">Capital</span>
+      </div>
+      <div class="card-body">
+        <h3>Delhi</h3>
+        <div class="card-subtitle">India's Capital City</div>
+        <p class="card-desc">A striking metropolis blending ancient and modern. From the UNESCO-listed Red Fort to Humayun's Tomb, Qutub Minar, India Gate, and Gandhi Smriti — Delhi is a living history textbook.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Best: Oct – Mar</span></div>
+          <div class="meta-item">✈️ <span>Major Hub</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Agra -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="agSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFE8D0"/>
+              <stop offset="100%" stop-color="#FFBF80"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#agSky)"/>
+          <!-- Yamuna -->
+          <ellipse cx="160" cy="180" rx="180" ry="30" fill="#6ABCE0" opacity=".5"/>
+          <!-- Taj Mahal -->
+          <rect x="95" y="90" width="130" height="80" fill="white" opacity=".97"/>
+          <!-- Main dome -->
+          <ellipse cx="160" cy="90" rx="35" ry="42" fill="white" opacity=".97"/>
+          <polygon points="160,48 148,90 172,90" fill="white" opacity=".97"/>
+          <!-- Minarets -->
+          <rect x="70" y="100" width="18" height="70" fill="white" opacity=".95" rx="2"/>
+          <ellipse cx="79" cy="100" rx="9" ry="14" fill="white" opacity=".97"/>
+          <polygon points="79,86 74,100 84,100" fill="white" opacity=".95"/>
+          <rect x="232" y="100" width="18" height="70" fill="white" opacity=".95" rx="2"/>
+          <ellipse cx="241" cy="100" rx="9" ry="14" fill="white" opacity=".97"/>
+          <polygon points="241,86 236,100 246,100" fill="white" opacity=".95"/>
+          <!-- Arch windows -->
+          <ellipse cx="138" cy="130" rx="14" ry="20" fill="#E8D8C8" opacity=".5"/>
+          <ellipse cx="160" cy="130" rx="14" ry="20" fill="#E8D8C8" opacity=".5"/>
+          <ellipse cx="182" cy="130" rx="14" ry="20" fill="#E8D8C8" opacity=".5"/>
+          <!-- Reflection -->
+          <ellipse cx="160" cy="180" rx="35" ry="10" fill="white" opacity=".3"/>
+          <!-- Sunrise -->
+          <circle cx="45" cy="35" r="22" fill="#FFD060" opacity=".9"/>
+          <line x1="45" y1="10" x2="45" y2="3" stroke="#FFD060" stroke-width="2"/>
+          <line x1="68" y1="18" x2="73" y2="13" stroke="#FFD060" stroke-width="2"/>
+          <line x1="75" y1="35" x2="82" y2="35" stroke="#FFD060" stroke-width="2"/>
+        </svg>
+        <span class="card-badge">7 Wonders</span>
+      </div>
+      <div class="card-body">
+        <h3>Agra</h3>
+        <div class="card-subtitle">City of Eternal Love</div>
+        <p class="card-desc">Home to the iconic Taj Mahal — a UNESCO World Heritage Site and one of the Seven Wonders of the World. Also featuring Agra Fort and Fatehpur Sikri, the Golden Triangle centrepiece.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Best: Oct – Mar</span></div>
+          <div class="meta-item">🕌 <span>Taj Mahal</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Mathura-Vrindavan -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mvSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFB6C1"/>
+              <stop offset="100%" stop-color="#FF7BAC"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#mvSky)"/>
+          <!-- Yamuna River -->
+          <ellipse cx="160" cy="175" rx="175" ry="35" fill="#6ABCE0" opacity=".6"/>
+          <!-- Krishna Temple -->
+          <rect x="85" y="65" width="150" height="100" fill="#FFF0F5" opacity=".97" rx="2"/>
+          <polygon points="85,65 160,20 235,65" fill="#FFD0E8"/>
+          <polygon points="100,65 160,28 220,65" fill="#FFDCEC"/>
+          <!-- Shikharas -->
+          <polygon points="140,65 160,15 180,65" fill="#FF7BAC" opacity=".9"/>
+          <rect x="148" y="100" width="24" height="65" fill="#FFB0CC" rx="2"/>
+          <ellipse cx="160" cy="98" rx="12" ry="8" fill="#FF7BAC"/>
+          <!-- Side temples -->
+          <rect x="52" y="90" width="35" height="75" fill="#FFF0F5" rx="2"/>
+          <polygon points="52,90 70,65 87,90" fill="#FFD0E8"/>
+          <rect x="233" y="90" width="35" height="75" fill="#FFF0F5" rx="2"/>
+          <polygon points="233,90 250,65 268,90" fill="#FFD0E8"/>
+          <!-- Flowers (Holi colors) -->
+          <circle cx="40" cy="160" r="6" fill="#FF6B6B" opacity=".8"/>
+          <circle cx="60" cy="168" r="5" fill="#FFEB3B" opacity=".8"/>
+          <circle cx="270" cy="162" r="6" fill="#FF6B6B" opacity=".8"/>
+          <circle cx="285" cy="170" r="5" fill="#4CAF50" opacity=".8"/>
+          <!-- Peacock -->
+          <circle cx="30" cy="110" r="10" fill="#2196F3" opacity=".7"/>
+          <ellipse cx="30" cy="125" rx="12" ry="18" fill="#4CAF50" opacity=".7"/>
+        </svg>
+        <span class="card-badge">Spiritual</span>
+      </div>
+      <div class="card-body">
+        <h3>Mathura – Vrindavan</h3>
+        <div class="card-subtitle">Birthplace of Lord Krishna</div>
+        <p class="card-desc">The Braj region's twin sacred cities on the Yamuna offer a unique blend of spirituality, history, and culture. Experience vibrant temples, colorful Holi celebrations, and timeless devotion.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Oct – Mar</span></div>
+          <div class="meta-item">🎨 <span>Holi Festival</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ HIMACHAL & PUNJAB ══ -->
+<section class="section" id="himachal" data-region="himachal">
+  <div class="section-head">
+    <div class="line"></div>
+    <span class="section-label">Hills & Valleys</span>
+    <h2>Himachal Pradesh & Punjab</h2>
+    <div class="line" style="background:linear-gradient(to left,var(--gold),transparent)"></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Shimla -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="shSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#C8E8F8"/>
+              <stop offset="100%" stop-color="#90C8E8"/>
+            </linearGradient>
+            <linearGradient id="shSnow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="100%" stop-color="#D0E8F0"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#shSky)"/>
+          <!-- Snow mountains -->
+          <polygon points="0,120 80,30 160,120" fill="url(#shSnow)"/>
+          <polygon points="100,120 200,15 300,120" fill="url(#shSnow)"/>
+          <polygon points="200,120 270,50 320,120" fill="url(#shSnow)"/>
+          <!-- Mountain body -->
+          <polygon points="0,120 80,60 160,120" fill="#A8C8E0"/>
+          <polygon points="100,120 200,50 300,120" fill="#B0D0E8"/>
+          <!-- Pine trees -->
+          <polygon points="20,150 30,110 40,150" fill="#1A5A28"/>
+          <polygon points="35,155 48,108 60,155" fill="#1A5A28"/>
+          <polygon points="258,150 270,108 282,150" fill="#1A5A28"/>
+          <polygon points="278,155 290,112 302,155" fill="#1A5A28"/>
+          <rect x="0" y="150" width="320" height="40" fill="#2D6830" opacity=".5"/>
+          <!-- Colonial buildings -->
+          <rect x="100" y="115" width="50" height="40" fill="#D4A870" rx="2"/>
+          <polygon points="100,115 125,95 150,115" fill="#C89050"/>
+          <rect x="165" y="110" width="55" height="45" fill="#C8A878" rx="2"/>
+          <polygon points="165,110 192,88 220,110" fill="#B88848"/>
+          <!-- Snow on roofs -->
+          <polygon points="100,115 125,95 150,115" fill="white" opacity=".4"/>
+          <polygon points="165,110 192,88 220,110" fill="white" opacity=".4"/>
+          <!-- Snowflakes -->
+          <text x="55" y="45" font-size="12" fill="white" opacity=".7">❄</text>
+          <text x="265" y="55" font-size="10" fill="white" opacity=".7">❄</text>
+        </svg>
+        <span class="card-badge">Queen of Hills</span>
+      </div>
+      <div class="card-body">
+        <h3>Shimla</h3>
+        <div class="card-subtitle">Former British Summer Capital</div>
+        <p class="card-desc">Snow-clad mountains, lush greenery, and beautiful lakes — Shimla is the quintessential hill station. Former British summer capital with charming colonial architecture and Mall Road.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>May–Jul & Sep–Nov</span></div>
+          <div class="meta-item">❄️ <span>Snow Dec–Mar</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Manali -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mnSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#9DC8E8"/>
+              <stop offset="100%" stop-color="#6AA8D0"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#mnSky)"/>
+          <!-- Himalayan peaks -->
+          <polygon points="0,110 70,20 140,110" fill="white"/>
+          <polygon points="0,110 70,45 140,110" fill="#B0C8D8"/>
+          <polygon points="90,110 180,5 270,110" fill="white"/>
+          <polygon points="90,110 180,35 270,110" fill="#A8C0D0"/>
+          <polygon points="200,110 280,30 320,110" fill="white"/>
+          <polygon points="200,110 280,55 320,110" fill="#B0C8D8"/>
+          <!-- Valley floor -->
+          <rect x="0" y="110" width="320" height="80" fill="#3A7840"/>
+          <!-- Beas River -->
+          <path d="M 0 145 Q 80 135 160 148 Q 240 160 320 145" stroke="#5AACE0" stroke-width="12" fill="none" opacity=".8"/>
+          <!-- Apple trees -->
+          <circle cx="50" cy="125" r="18" fill="#FF6B8A" opacity=".7"/>
+          <circle cx="260" cy="125" r="16" fill="#FF8BAA" opacity=".7"/>
+          <rect x="47" y="140" width="6" height="30" fill="#5A3818"/>
+          <rect x="257" y="138" width="6" height="32" fill="#5A3818"/>
+          <!-- Adventure - ski/snow -->
+          <circle cx="160" cy="35" r="4" fill="#FFD060"/>
+          <text x="145" y="55" font-size="10" fill="white" opacity=".8">▲ 6260 ft</text>
+        </svg>
+        <span class="card-badge">Adventure Hub</span>
+      </div>
+      <div class="card-body">
+        <h3>Manali</h3>
+        <div class="card-subtitle">Valley of the Gods, 6260 ft</div>
+        <p class="card-desc">Nestled at 6,260 feet on the Beas River, Manali is a paradise for adventure lovers. Blooming apple orchards, deodar forests, snow-covered passes, and adventure sports await.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Mar – Jun & Oct</span></div>
+          <div class="meta-item">🏔️ <span>Rohtang Pass</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Amritsar -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="amSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFE0A0"/>
+              <stop offset="100%" stop-color="#FFB040"/>
+            </linearGradient>
+            <linearGradient id="amWater" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#80D0F0"/>
+              <stop offset="100%" stop-color="#50B0E0"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#amSky)"/>
+          <!-- Sarovar (pool) -->
+          <rect x="30" y="100" width="260" height="90" fill="url(#amWater)" rx="4"/>
+          <!-- Causeway -->
+          <rect x="140" y="95" width="40" height="95" fill="#D4A860" opacity=".8"/>
+          <!-- Golden Temple -->
+          <rect x="110" y="75" width="100" height="60" fill="#C8A020" rx="2"/>
+          <!-- Gold dome -->
+          <ellipse cx="160" cy="75" rx="30" ry="25" fill="#FFD040"/>
+          <polygon points="160,50 145,75 175,75" fill="#FFB820"/>
+          <!-- Marble base -->
+          <rect x="100" y="125" width="120" height="20" fill="white" opacity=".9"/>
+          <!-- Side arches -->
+          <rect x="75" y="100" width="35" height="50" fill="#E0C870" rx="2"/>
+          <rect x="210" y="100" width="35" height="50" fill="#E0C870" rx="2"/>
+          <!-- Reflection -->
+          <ellipse cx="160" cy="180" rx="40" ry="12" fill="#FFD040" opacity=".4"/>
+          <!-- Lamps -->
+          <circle cx="80" cy="90" r="4" fill="#FFD060"/>
+          <circle cx="240" cy="90" r="4" fill="#FFD060"/>
+          <circle cx="160" cy="65" r="5" fill="#FFD060"/>
+        </svg>
+        <span class="card-badge">Holy City</span>
+      </div>
+      <div class="card-body">
+        <h3>Amritsar</h3>
+        <div class="card-subtitle">Home of the Golden Temple</div>
+        <p class="card-desc">Founded by Guru Ram Das in 1577, Amritsar is home to the magnificent Golden Temple (Harmandir Sahib) — Sikhism's holiest shrine. Also home to the patriotic Wagah Border ceremony.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Sep – Mar</span></div>
+          <div class="meta-item">🕌 <span>Golden Temple</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Chandigarh -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="chSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B8E4C8"/>
+              <stop offset="100%" stop-color="#70C090"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#chSky)"/>
+          <!-- Sukhna Lake -->
+          <ellipse cx="200" cy="155" rx="110" ry="35" fill="#6ABCE0" opacity=".8"/>
+          <!-- Rock Garden elements -->
+          <rect x="30" y="100" width="180" height="75" fill="#7A9A60"/>
+          <!-- Terracotta sculptures -->
+          <circle cx="60" cy="95" r="12" fill="#C8784A"/>
+          <circle cx="90" cy="88" r="10" fill="#D8885A"/>
+          <circle cx="120" cy="92" r="13" fill="#C8784A"/>
+          <circle cx="155" cy="86" r="11" fill="#D8885A"/>
+          <!-- Capitol Complex (Le Corbusier) -->
+          <rect x="130" y="35" width="80" height="55" fill="#D4C0A0" rx="3"/>
+          <polygon points="130,35 170,10 210,35" fill="#E8D4B0"/>
+          <!-- Geometric windows -->
+          <rect x="145" y="45" width="12" height="16" fill="#A09080" rx="2"/>
+          <rect x="165" y="45" width="12" height="16" fill="#A09080" rx="2"/>
+          <rect x="185" y="45" width="12" height="16" fill="#A09080" rx="2"/>
+          <!-- Rose Garden -->
+          <circle cx="270" cy="80" r="20" fill="#FF6B9B" opacity=".6"/>
+          <circle cx="285" cy="68" r="15" fill="#FF4D88" opacity=".6"/>
+          <circle cx="258" cy="72" r="12" fill="#FF8BAA" opacity=".6"/>
+          <!-- Trees -->
+          <circle cx="30" cy="75" r="18" fill="#2D6830"/>
+          <circle cx="310" cy="80" r="16" fill="#3A7840"/>
+        </svg>
+        <span class="card-badge">City Beautiful</span>
+      </div>
+      <div class="card-body">
+        <h3>Chandigarh</h3>
+        <div class="card-subtitle">India's Best Planned City</div>
+        <p class="card-desc">The "City Beautiful" — designed by Le Corbusier — is India's cleanest, best-planned city. The Rock Garden, Rose Garden, Sukhna Lake, and Capitol Complex make it uniquely elegant.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Oct – Mar</span></div>
+          <div class="meta-item">🌹 <span>Rose Garden</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Dalhousie -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dalSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#A0C8E8"/>
+              <stop offset="100%" stop-color="#78A8D0"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#dalSky)"/>
+          <polygon points="0,100 90,25 180,100" fill="#DCEEF8"/>
+          <polygon points="0,100 90,50 180,100" fill="#A0C0D8"/>
+          <polygon points="140,100 230,18 320,100" fill="#E4F2FC"/>
+          <polygon points="140,100 230,48 320,100" fill="#B0C8E0"/>
+          <rect x="0" y="100" width="320" height="90" fill="#2A5A30"/>
+          <!-- Pine forest -->
+          <polygon points="15,140 30,90 45,140" fill="#1A4520"/>
+          <polygon points="40,145 58,88 76,145" fill="#1A4520"/>
+          <polygon points="248,140 264,88 280,140" fill="#1A4520"/>
+          <polygon points="275,145 292,92 310,145" fill="#1A4520"/>
+          <!-- Colonial church -->
+          <rect x="120" y="90" width="80" height="65" fill="white" opacity=".9" rx="2"/>
+          <polygon points="120,90 160,60 200,90" fill="white" opacity=".9"/>
+          <rect x="150" y="55" width="12" height="25" fill="#C8D0D8" rx="2"/>
+          <!-- Windows -->
+          <rect x="130" y="105" width="14" height="20" rx="7" fill="#A8C0D8" opacity=".8"/>
+          <rect x="176" y="105" width="14" height="20" rx="7" fill="#A8C0D8" opacity=".8"/>
+          <!-- Clouds -->
+          <ellipse cx="70" cy="25" rx="35" ry="12" fill="white" opacity=".7"/>
+          <ellipse cx="260" cy="30" rx="30" ry="10" fill="white" opacity=".7"/>
+        </svg>
+        <span class="card-badge">Hill Town</span>
+      </div>
+      <div class="card-body">
+        <h3>Dalhousie</h3>
+        <div class="card-subtitle">Scotland of India</div>
+        <p class="card-desc">Nestled in the Dhauladhar range of the Himalayas, Dalhousie is a charming colonial-era hill town with Victorian and Scottish architecture, pine-clad slopes, and breathtaking Himalayan vistas.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Mar – Jun & Sep – Oct</span></div>
+          <div class="meta-item">🏔️ <span>Dhauladhars</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+    <!-- Dharamshala -->
+    <div class="dest-card">
+      <div class="card-thumb">
+        <svg viewBox="0 0 320 190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dhSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#E8C8F0"/>
+              <stop offset="100%" stop-color="#C090D8"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="190" fill="url(#dhSky)"/>
+          <!-- Dhauladhars -->
+          <polygon points="0,110 100,20 200,110" fill="white"/>
+          <polygon points="0,110 100,50 200,110" fill="#C0D0E0"/>
+          <polygon points="150,110 250,15 320,110" fill="white"/>
+          <polygon points="150,110 250,45 320,110" fill="#B8C8D8"/>
+          <rect x="0" y="110" width="320" height="80" fill="#3A6840"/>
+          <!-- Buddhist monastery -->
+          <rect x="90" y="70" width="140" height="75" fill="#FFD080" rx="3"/>
+          <polygon points="90,70 160,35 230,70" fill="#FF9040"/>
+          <!-- Decorative elements -->
+          <rect x="100" y="82" width="20" height="30" fill="#FF6020" rx="2"/>
+          <rect x="200" y="82" width="20" height="30" fill="#FF6020" rx="2"/>
+          <rect x="140" y="78" width="40" height="35" fill="#FF8030" rx="2"/>
+          <!-- Prayer flags -->
+          <line x1="80" y1="30" x2="240" y2="30" stroke="#FFD060" stroke-width="1.5"/>
+          <rect x="90" y="26" width="14" height="10" fill="#FF4444" opacity=".8"/>
+          <rect x="110" y="26" width="14" height="10" fill="#FFFFFF" opacity=".8"/>
+          <rect x="130" y="26" width="14" height="10" fill="#4444FF" opacity=".8"/>
+          <rect x="150" y="26" width="14" height="10" fill="#44AA44" opacity=".8"/>
+          <rect x="170" y="26" width="14" height="10" fill="#FFAA00" opacity=".8"/>
+          <rect x="190" y="26" width="14" height="10" fill="#FF4444" opacity=".8"/>
+          <rect x="210" y="26" width="14" height="10" fill="#FFFFFF" opacity=".8"/>
+        </svg>
+        <span class="card-badge">Little Lhasa</span>
+      </div>
+      <div class="card-body">
+        <h3>Dharamshala</h3>
+        <div class="card-subtitle">Home of the Dalai Lama</div>
+        <p class="card-desc">"Little Lhasa" sits against the stunning Dhauladhar range. Home to the Dalai Lama's residence, Tibetan culture, Buddhist monasteries, colorful prayer flags, and magnificent Himalayan views.</p>
+        <div class="card-meta">
+          <div class="meta-item">🌡️ <span>Mar – Jun & Sep – Nov</span></div>
+          <div class="meta-item">☸️ <span>Buddhist Culture</span></div>
+        </div>
+        <a href="index.html#contact" class="card-cta">Get a Quote</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════ FOOTER ══ -->
+<footer>
+  <p><strong>Vinayak Tours & Travels</strong> — Since 2001, Jaipur (Raj.)</p>
+  <p style="margin-top:6px;">📞 <a href="tel:+911412345678">+91-141-XXXXXXX</a> &nbsp;|&nbsp; ✉️ <a href="mailto:info@vinayaktours.com">info@vinayaktours.com</a></p>
+  <p style="margin-top:10px;opacity:.5;font-size:0.75rem;">© 2025 Vinayak Tours & Travels. All rights reserved.</p>
+</footer>
+
+<script>
+  function filterSection(region, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.section[data-region]').forEach(sec => {
+      if (region === 'all' || sec.dataset.region === region) {
+        sec.style.display = '';
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        sec.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
